@@ -1,24 +1,26 @@
-name: Deploy to GitHub Pages
+name: Deploy site to `gh-pages` branch (no deprecated actions)
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  deploy-to-gh-pages:
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload site artifact
-        # use newer upload-pages-artifact version to avoid deprecated upload-artifact v3
-        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
 
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+      - name: Log deployed branch
+        run: |
+          echo "Deployed to gh-pages branch."
+
