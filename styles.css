@@ -41,7 +41,7 @@ html,body{height:100%;margin:0;font-family:system-ui, -apple-system, 'Segoe UI',
 .icon-btn{background:none;border:1px solid transparent;padding:8px;border-radius:6px;cursor:pointer;color:#222}
 .icon-btn:hover{background:rgba(0,0,0,0.04)}
 
-.main{padding:48px 28px;display:flex;justify-content:center}
+.main{padding:48px 28px;display:flex;flex-direction:column;align-items:center;gap:12px}
 .editor{width:100%;max-width:var(--content-max-width);min-height:80px;padding:24px;border:none;background:transparent;border-radius:8px;font-size:var(--editor-size);font-family:var(--editor-font);letter-spacing:var(--editor-letter);line-height:var(--editor-line);color:var(--editor-color);resize:none;overflow:hidden}
 .editor:focus{outline:2px solid rgba(0,0,0,0.06)}
 .editor::placeholder{font-size:20px;line-height:2;color:#666}
@@ -51,10 +51,11 @@ html,body{height:100%;margin:0;font-family:system-ui, -apple-system, 'Segoe UI',
 
 /* 힌트는 푸터 바로 위에 고정해서 표시 */
 /* 힌트: 푸터 바로 위에 띄워 표시 (푸터와 약간의 여유 공간 포함) */
-.hint{position:fixed;left:0;right:0;bottom:calc(60px + 22px);text-align:center;color:#666;font-size:16px;z-index:20}
+/* 힌트는 텍스트 박스 바로 아래 중앙에 표시 */
+.hint{position:static;margin-top:12px;text-align:center;color:#666;font-size:16px;z-index:20}
 
 .site-footer{position:fixed;left:0;right:0;bottom:60px;display:flex;justify-content:center;pointer-events:none}
-.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:800;color:#e22726;font-size:30px}
+.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:800;color:#e22726;font-size:24px}
 
 @media (max-width:720px){
   .controls{gap:8px}
