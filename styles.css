@@ -50,10 +50,11 @@ html,body{height:100%;margin:0;font-family:system-ui, -apple-system, 'Segoe UI',
 .editor:-ms-input-placeholder{font-size:20px;line-height:2;color:#666}
 
 /* 힌트는 푸터 바로 위에 고정해서 표시 */
-.hint{position:fixed;left:0;right:0;bottom:calc(60px + 12px);text-align:center;color:#666;font-size:16px;z-index:20}
+/* 힌트: 푸터 바로 위에 띄워 표시 (푸터와 약간의 여유 공간 포함) */
+.hint{position:fixed;left:0;right:0;bottom:calc(60px + 22px);text-align:center;color:#666;font-size:16px;z-index:20}
 
 .site-footer{position:fixed;left:0;right:0;bottom:60px;display:flex;justify-content:center;pointer-events:none}
-.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:800;color:#e22726;font-size:38px}
+.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:800;color:#e22726;font-size:30px}
 
 @media (max-width:720px){
   .controls{gap:8px}
