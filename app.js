@@ -5,10 +5,8 @@ const els = {
   fontSizeNumber: document.getElementById('fontSizeNumber'),
   letterSpacing: document.getElementById('letterSpacing'),
   letterNumber: document.getElementById('letterNumber'),
-  letterVal: document.getElementById('letterVal'),
   lineHeight: document.getElementById('lineHeight'),
   lineNumber: document.getElementById('lineNumber'),
-  lineVal: document.getElementById('lineVal'),
   fontColor: document.getElementById('fontColor'),
   editor: document.getElementById('editor'),
   hint: document.getElementById('hint'),
@@ -25,11 +23,9 @@ function applyAll(){
   const letter = els.letterSpacing.value + 'px';
   if(els.letterNumber) els.letterNumber.value = els.letterSpacing.value;
   document.documentElement.style.setProperty('--editor-letter', letter);
-  els.letterVal.textContent = letter;
   const line = els.lineHeight.value; // unitless em-like
   document.documentElement.style.setProperty('--editor-line', line);
   if(els.lineNumber) els.lineNumber.value = els.lineHeight.value;
-  els.lineVal.textContent = line;
   document.documentElement.style.setProperty('--editor-color', els.fontColor.value);
 }
 
@@ -100,6 +96,17 @@ function resetInactivity(){
   window.addEventListener(ev, resetInactivity, {passive:true});
 });
 resetInactivity();
+
+// auto-resize textarea height to fit content
+function autoResize(){
+  try{
+    els.editor.style.height = 'auto';
+    els.editor.style.height = els.editor.scrollHeight + 'px';
+  }catch(e){/* ignore */}
+}
+els.editor.addEventListener('input', ()=>{ autoResize(); });
+// initialize size on load
+setTimeout(autoResize,50);
 
 let hintTimeout = null;
 function showHint(msg){
