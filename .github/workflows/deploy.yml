@@ -5,22 +5,26 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy-to-gh-pages:
+  deploy-to-main-root:
+    # prevent this job from running for commits made by the actions bot (avoid loops)
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Deploy to gh-pages
+      - name: Deploy site to `main` (root)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
+          publish_branch: main
           publish_dir: ./
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
 
       - name: Log deployed branch
         run: |
-          echo "Deployed to gh-pages branch."
+          echo "Deployed to main branch (root)."
 

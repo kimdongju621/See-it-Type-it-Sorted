@@ -32,7 +32,7 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
 
-.topbar{display:flex;justify-content:center;padding:14px 16px;position:sticky;top:0;z-index:10}
+.topbar{display:flex;justify-content:center;padding:14px 16px;position:sticky;top:36px;z-index:10}
 .controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center}
 .control{display:flex;align-items:center;gap:8px}
 .control span{font-size:13px;color:#444}
@@ -42,11 +42,12 @@ html,body{height:100%;margin:0;font-family:system-ui, -apple-system, 'Segoe UI',
 .icon-btn:hover{background:rgba(0,0,0,0.04)}
 
 .main{padding:28px;display:flex;justify-content:center}
-.editor{width:100%;max-width:var(--content-max-width);min-height:320px;padding:24px;border:1px dashed #e7e7e7;border-radius:8px;font-size:var(--editor-size);font-family:var(--editor-font);letter-spacing:var(--editor-letter);line-height:var(--editor-line);color:var(--editor-color);resize:vertical}
+.editor{width:100%;max-width:var(--content-max-width);min-height:320px;padding:24px;border:none;border-radius:8px;font-size:var(--editor-size);font-family:var(--editor-font);letter-spacing:var(--editor-letter);line-height:var(--editor-line);color:var(--editor-color);resize:vertical}
+.editor:focus{outline:2px solid rgba(0,0,0,0.06)}
 .hint{margin-top:8px;text-align:center;color:#666;font-size:13px}
 
-.site-footer{position:fixed;left:0;right:0;bottom:18px;display:flex;justify-content:center;pointer-events:none}
-.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:700;color:#e22726}
+.site-footer{position:fixed;left:0;right:0;bottom:40px;display:flex;justify-content:center;pointer-events:none}
+.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:700;color:#e22726;font-size:28px}
 
 @media (max-width:720px){
   .controls{gap:8px}

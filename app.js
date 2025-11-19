@@ -4,8 +4,10 @@ const els = {
   fontSize: document.getElementById('fontSize'),
   fontSizeNumber: document.getElementById('fontSizeNumber'),
   letterSpacing: document.getElementById('letterSpacing'),
+  letterNumber: document.getElementById('letterNumber'),
   letterVal: document.getElementById('letterVal'),
   lineHeight: document.getElementById('lineHeight'),
+  lineNumber: document.getElementById('lineNumber'),
   lineVal: document.getElementById('lineVal'),
   fontColor: document.getElementById('fontColor'),
   editor: document.getElementById('editor'),
@@ -21,10 +23,12 @@ function applyAll(){
   document.documentElement.style.setProperty('--editor-size', size);
   els.fontSizeNumber.value = els.fontSize.value;
   const letter = els.letterSpacing.value + 'px';
+  if(els.letterNumber) els.letterNumber.value = els.letterSpacing.value;
   document.documentElement.style.setProperty('--editor-letter', letter);
   els.letterVal.textContent = letter;
   const line = els.lineHeight.value; // unitless em-like
   document.documentElement.style.setProperty('--editor-line', line);
+  if(els.lineNumber) els.lineNumber.value = els.lineHeight.value;
   els.lineVal.textContent = line;
   document.documentElement.style.setProperty('--editor-color', els.fontColor.value);
 }
@@ -33,7 +37,9 @@ els.fontSelect.addEventListener('change', applyAll);
 els.fontSize.addEventListener('input', applyAll);
 els.fontSizeNumber.addEventListener('input', e=>{els.fontSize.value = e.target.value; applyAll();});
 els.letterSpacing.addEventListener('input', applyAll);
+if(els.letterNumber) els.letterNumber.addEventListener('input', e=>{ els.letterSpacing.value = e.target.value; applyAll(); });
 els.lineHeight.addEventListener('input', applyAll);
+if(els.lineNumber) els.lineNumber.addEventListener('input', e=>{ els.lineHeight.value = e.target.value; applyAll(); });
 els.fontColor.addEventListener('input', applyAll);
 
 // alignment
@@ -65,6 +71,35 @@ els.editor.addEventListener('input', (e)=>{
     // no-op
   }
 });
+
+// paste: filter out non-ascii
+els.editor.addEventListener('paste', (ev)=>{
+  ev.preventDefault();
+  const text = (ev.clipboardData || window.clipboardData).getData('text');
+  const filtered = text.split('').filter(ch => {
+    if (ch === '\n' || ch === '\r' || ch === '\t') return true;
+    const code = ch.charCodeAt(0);
+    return code >= 32 && code <= 126;
+  }).join('');
+  const start = els.editor.selectionStart;
+  const end = els.editor.selectionEnd;
+  const val = els.editor.value;
+  els.editor.value = val.slice(0,start) + filtered + val.slice(end);
+  els.editor.selectionStart = els.editor.selectionEnd = start + filtered.length;
+  applyAll();
+});
+
+// inactivity auto-reload after 3 minutes (180000 ms)
+let inactivityTimer = null;
+const INACTIVITY_MS = 180000;
+function resetInactivity(){
+  if(inactivityTimer) clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(()=>{ location.reload(); }, INACTIVITY_MS);
+}
+[ 'mousemove','mousedown','touchstart','keydown','scroll' ].forEach(ev => {
+  window.addEventListener(ev, resetInactivity, {passive:true});
+});
+resetInactivity();
 
 let hintTimeout = null;
 function showHint(msg){
