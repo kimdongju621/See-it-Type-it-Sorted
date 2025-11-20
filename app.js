@@ -117,4 +117,4 @@ function showHint(msg){
 
 // 초깃값 적용
 applyAll();
-setAlignment('left');
+setAlignment('center');
