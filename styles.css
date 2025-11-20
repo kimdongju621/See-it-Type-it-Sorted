@@ -53,10 +53,10 @@ html,body{height:100%;margin:0;font-family:system-ui, -apple-system, 'Segoe UI',
 /* 힌트는 푸터 바로 위에 고정해서 표시 */
 /* 힌트: 푸터 바로 위에 띄워 표시 (푸터와 약간의 여유 공간 포함) */
 /* 힌트는 텍스트 박스 바로 아래 중앙에 표시 */
-.hint{position:static;margin-top:12px;text-align:center;color:#666;font-size:16px;z-index:20}
+.hint{position:fixed;left:0;right:0;bottom:calc(60px + 12px);text-align:center;color:#666;font-size:16px;z-index:120}
 
 .site-footer{position:fixed;left:0;right:0;bottom:60px;display:flex;justify-content:center;pointer-events:none}
-.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:800;color:#e22726;font-size:20px}
+.footer-inner{pointer-events:auto;padding:6px 12px;border-radius:6px;font-family:'Neue Haas Unica',sans-serif;font-weight:800;color:#e22726;font-size:24px}
 
 @media (max-width:720px){
   .controls{gap:8px}
