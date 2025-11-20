@@ -101,7 +101,7 @@ els.editor.addEventListener('paste', (ev)=>{
 
 // inactivity auto-reload after 3 minutes (180000 ms)
 let inactivityTimer = null;
-const INACTIVITY_MS = 180000;
+const INACTIVITY_MS = 900000; // 15 minutes
 function resetInactivity(){
   if(inactivityTimer) clearTimeout(inactivityTimer);
   inactivityTimer = setTimeout(()=>{ location.reload(); }, INACTIVITY_MS);
