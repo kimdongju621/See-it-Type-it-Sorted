@@ -38,8 +38,11 @@ function fillEditorBetween(){
   if(!header || !footer || !els.editor) return;
   const headerBottom = header.getBoundingClientRect().bottom;
   const footerTop = footer.getBoundingClientRect().top;
+  // take hint height into account so hint can sit above the footer
+  const hintEl = document.getElementById('hint');
+  const hintHeight = hintEl ? Math.ceil(hintEl.getBoundingClientRect().height) + 12 : 0;
   // leave small padding
-  const available = Math.max(120, Math.floor(footerTop - headerBottom - 24));
+  const available = Math.max(120, Math.floor(footerTop - headerBottom - 24 - hintHeight));
   els.editor.style.height = available + 'px';
 }
 
