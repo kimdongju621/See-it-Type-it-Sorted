@@ -27,6 +27,20 @@ function applyAll(){
   document.documentElement.style.setProperty('--editor-line', line);
   if(els.lineNumber) els.lineNumber.value = els.lineHeight.value;
   document.documentElement.style.setProperty('--editor-color', els.fontColor.value);
+  // ensure editor size recalculates after style changes
+  setTimeout(fillEditorBetween, 0);
+}
+
+// Fill editor height between header bottom and footer top
+function fillEditorBetween(){
+  const header = document.querySelector('.topbar');
+  const footer = document.querySelector('.site-footer');
+  if(!header || !footer || !els.editor) return;
+  const headerBottom = header.getBoundingClientRect().bottom;
+  const footerTop = footer.getBoundingClientRect().top;
+  // leave small padding
+  const available = Math.max(120, Math.floor(footerTop - headerBottom - 24));
+  els.editor.style.height = available + 'px';
 }
 
 els.fontSelect.addEventListener('change', applyAll);
@@ -97,16 +111,12 @@ function resetInactivity(){
 });
 resetInactivity();
 
-// auto-resize textarea height to fit content
-function autoResize(){
-  try{
-    els.editor.style.height = 'auto';
-    els.editor.style.height = els.editor.scrollHeight + 'px';
-  }catch(e){/* ignore */}
-}
-els.editor.addEventListener('input', ()=>{ autoResize(); });
+// resize editor to fill area between header and footer
+window.addEventListener('resize', fillEditorBetween);
+// call after content/input changes too
+els.editor.addEventListener('input', ()=>{ fillEditorBetween(); });
 // initialize size on load
-setTimeout(autoResize,50);
+setTimeout(fillEditorBetween,50);
 
 let hintTimeout = null;
 function showHint(msg){
