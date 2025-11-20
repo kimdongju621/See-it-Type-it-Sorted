@@ -22,9 +22,9 @@
 
 :root{
   --editor-font: 'LDN Round';
-  --editor-size: 36px;
+  --editor-size: 24px;
   --editor-letter: 0px;
-  --editor-line: 1.2;
+  --editor-line: 1.6;
   --editor-color: #000;
   --content-max-width: 980px;
 }
